@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "We Are Coming Soon"
+description = "A polished coming-soon landing page with an animated countdown, email notification capture, and warm editorial launch atmosphere."
+version = "1.0.0"
+id = "artifacts/coming-soon"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19580
+
+[services.development]
+run = "pnpm --filter @workspace/coming-soon run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/coming-soon", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/coming-soon/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19580"
+BASE_PATH = "/"
